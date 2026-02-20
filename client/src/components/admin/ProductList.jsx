@@ -48,7 +48,7 @@ const ProductList = () => {
                     const config = {
                         headers: { Authorization: `Bearer ${user.token}` },
                     };
-                    await axios.delete(`\${import.meta.env.VITE_API_URL}/api/products/${id}`, config);
+                    await axios.delete(`${import.meta.env.VITE_API_URL}/api/products/${id}`, config);
                     showSuccess('Product deleted successfully');
                     fetchProducts();
                 } catch (error) {

@@ -61,7 +61,7 @@ const OrderList = () => {
             const config = {
                 headers: { Authorization: `Bearer ${user.token}` },
             };
-            await axios.put(`\${import.meta.env.VITE_API_URL}/api/orders/${id}/deliver`, {}, config);
+            await axios.put(`${import.meta.env.VITE_API_URL}/api/orders/${id}/deliver`, {}, config);
             // Refresh orders
             const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/orders', config);
             setOrders(data);

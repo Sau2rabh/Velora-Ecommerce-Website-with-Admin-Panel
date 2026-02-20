@@ -48,7 +48,7 @@ const UserList = () => {
                     const config = {
                         headers: { Authorization: `Bearer ${currentUser.token}` },
                     };
-                    await axios.delete(`\${import.meta.env.VITE_API_URL}/api/users/${id}`, config);
+                    await axios.delete(`${import.meta.env.VITE_API_URL}/api/users/${id}`, config);
                     showSuccess('User deleted successfully');
                     fetchUsers();
                 } catch (error) {
@@ -69,7 +69,7 @@ const UserList = () => {
                     const config = {
                         headers: { Authorization: `Bearer ${currentUser.token}` },
                     };
-                    await axios.put(`\${import.meta.env.VITE_API_URL}/api/users/${user._id}`, { isAdmin: !user.isAdmin }, config);
+                    await axios.put(`${import.meta.env.VITE_API_URL}/api/users/${user._id}`, { isAdmin: !user.isAdmin }, config);
                     showSuccess(`User role updated to ${!user.isAdmin ? 'Admin' : 'Customer'}`);
                     fetchUsers();
                 } catch (error) {

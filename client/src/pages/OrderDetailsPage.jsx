@@ -30,7 +30,7 @@ const OrderDetailsPage = () => {
                 const config = {
                     headers: { Authorization: `Bearer ${user.token}` },
                 };
-                const { data } = await axios.get(`\${import.meta.env.VITE_API_URL}/api/orders/${id}`, config);
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/orders/${id}`, config);
                 setOrder(data);
             } catch (error) {
                 console.error(error);
