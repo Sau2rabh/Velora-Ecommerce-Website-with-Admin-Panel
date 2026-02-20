@@ -20,7 +20,7 @@ const TrackOrderPage = () => {
         setOrderData(null);
 
         try {
-            const { data } = await axios.get(`http://127.0.0.1:5000/api/orders/track?id=${orderId}&email=${email}`);
+            const { data } = await axios.get(`\${import.meta.env.VITE_API_URL}/api/orders/track?id=${orderId}&email=${email}`);
             setOrderData(data);
         } catch (err) {
             setError(err.response?.data?.message || 'Order not found. Please check your details.');

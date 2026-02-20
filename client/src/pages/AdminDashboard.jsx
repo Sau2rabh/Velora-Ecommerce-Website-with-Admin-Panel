@@ -178,7 +178,7 @@ const AdminDashboard = () => {
                     headers: { Authorization: `Bearer ${user.token}` },
                     params: { range: timeRange }
                 };
-                const { data } = await axios.get('http://127.0.0.1:5000/api/analytics', config);
+                const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/analytics', config);
                 setStats(data);
                 setLoading(false);
             } catch (error) {

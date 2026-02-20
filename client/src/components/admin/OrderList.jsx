@@ -26,7 +26,7 @@ const OrderList = () => {
             const config = {
                 headers: { Authorization: `Bearer ${user.token}` },
             };
-            const { data } = await axios.get('http://127.0.0.1:5000/api/orders', config);
+            const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/orders', config);
             setOrders(data);
              // Verify if selected order needs update in modal (optional, but good for UX if modal stays open)
              if (selectedOrder) {
@@ -44,7 +44,7 @@ const OrderList = () => {
                 const config = {
                     headers: { Authorization: `Bearer ${user.token}` },
                 };
-                const { data } = await axios.get('http://127.0.0.1:5000/api/orders', config);
+                const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/orders', config);
                 setOrders(data);
                 setLoading(false);
             } catch (error) {
@@ -61,9 +61,9 @@ const OrderList = () => {
             const config = {
                 headers: { Authorization: `Bearer ${user.token}` },
             };
-            await axios.put(`http://localhost:5000/api/orders/${id}/deliver`, {}, config);
+            await axios.put(`\${import.meta.env.VITE_API_URL}/api/orders/${id}/deliver`, {}, config);
             // Refresh orders
-            const { data } = await axios.get('http://localhost:5000/api/orders', config);
+            const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/orders', config);
             setOrders(data);
         } catch (error) {
             console.error(error);

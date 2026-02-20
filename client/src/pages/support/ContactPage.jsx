@@ -21,7 +21,7 @@ const ContactPage = () => {
         setError('');
 
         try {
-            await axios.post('http://127.0.0.1:5000/api/support/contact', formData);
+            await axios.post(import.meta.env.VITE_API_URL + '/api/support/contact', formData);
             setSubmitted(true);
             setFormData({ name: '', email: '', subject: 'Support Request', message: '' });
         } catch (err) {

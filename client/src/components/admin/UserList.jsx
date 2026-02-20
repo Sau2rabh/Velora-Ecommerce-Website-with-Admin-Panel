@@ -28,7 +28,7 @@ const UserList = () => {
             const config = {
                 headers: { Authorization: `Bearer ${currentUser.token}` },
             };
-            const { data } = await axios.get('http://127.0.0.1:5000/api/users', config);
+            const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/users', config);
             setUsers(data);
             setLoading(false);
         } catch (error) {
@@ -48,7 +48,7 @@ const UserList = () => {
                     const config = {
                         headers: { Authorization: `Bearer ${currentUser.token}` },
                     };
-                    await axios.delete(`http://127.0.0.1:5000/api/users/${id}`, config);
+                    await axios.delete(`\${import.meta.env.VITE_API_URL}/api/users/${id}`, config);
                     showSuccess('User deleted successfully');
                     fetchUsers();
                 } catch (error) {
@@ -69,7 +69,7 @@ const UserList = () => {
                     const config = {
                         headers: { Authorization: `Bearer ${currentUser.token}` },
                     };
-                    await axios.put(`http://127.0.0.1:5000/api/users/${user._id}`, { isAdmin: !user.isAdmin }, config);
+                    await axios.put(`\${import.meta.env.VITE_API_URL}/api/users/${user._id}`, { isAdmin: !user.isAdmin }, config);
                     showSuccess(`User role updated to ${!user.isAdmin ? 'Admin' : 'Customer'}`);
                     fetchUsers();
                 } catch (error) {

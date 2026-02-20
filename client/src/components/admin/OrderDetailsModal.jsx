@@ -28,7 +28,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onOrderUpdated }) => {
             const config = {
                 headers: { Authorization: `Bearer ${user.token}` },
             };
-            await axios.put(`http://127.0.0.1:5000/api/orders/${order._id}/deliver`, {}, config);
+            await axios.put(`\${import.meta.env.VITE_API_URL}/api/orders/${order._id}/deliver`, {}, config);
             showSuccess('Order marked as Delivered');
             onOrderUpdated(); // Refresh parent list
         } catch (error) {
@@ -44,7 +44,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onOrderUpdated }) => {
             const config = {
                 headers: { Authorization: `Bearer ${user.token}` },
             };
-            await axios.put(`http://127.0.0.1:5000/api/orders/${order._id}/pay`, {}, config);
+            await axios.put(`\${import.meta.env.VITE_API_URL}/api/orders/${order._id}/pay`, {}, config);
             showSuccess('Order marked as Paid');
             onOrderUpdated();
         } catch (error) {

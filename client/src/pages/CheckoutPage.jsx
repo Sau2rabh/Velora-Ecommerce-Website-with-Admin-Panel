@@ -158,7 +158,7 @@ const CheckoutPage = () => {
                 totalPrice: finalAmount,
             };
 
-            const { data } = await axios.post('http://127.0.0.1:5000/api/orders', orderData, config);
+            const { data } = await axios.post(import.meta.env.VITE_API_URL + '/api/orders', orderData, config);
 
             showSuccess('Order Placed Automatically!');
             clearCart();
