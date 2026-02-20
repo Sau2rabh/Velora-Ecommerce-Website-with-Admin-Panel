@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const path = require('path');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
@@ -24,6 +25,20 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/support', require('./routes/supportRoutes'));
 // app.use('/api/upload', require('./routes/uploadRoutes')); // Later
 
+// Serve Frontend in Production
+if (process.env.NODE_ENV === 'production') {
+  // Set build folder as static
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+
+  // For any route not starting with /api, serve index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client', 'dist', 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running....');
+  });
+}
 // Error Handling Middleware
 app.use((err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
