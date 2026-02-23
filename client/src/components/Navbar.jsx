@@ -113,6 +113,46 @@ const Navbar = () => {
 
 
 
+                    {/* Desktop Search Bar */}
+                    <div className="hidden xl:flex items-center order-2 flex-1 max-w-sm mx-8">
+                        <motion.div
+                            animate={{ width: isSearchFocused ? '100%' : '220px' }}
+                            transition={{ duration: 0.3, ease: 'easeInOut' }}
+                            className={`relative flex items-center rounded-full border transition-all duration-300 ${
+                                isDarkMode
+                                    ? isSearchFocused ? 'bg-white/10 border-white/20 shadow-lg shadow-black/20' : 'bg-white/5 border-white/10'
+                                    : isSearchFocused ? 'bg-white border-pink-200 shadow-md shadow-pink-100/50' : 'bg-gray-100/70 border-gray-200/50'
+                            }`}
+                        >
+                            <input
+                                type="text"
+                                placeholder="Search products..."
+                                className={`w-full bg-transparent text-sm font-medium outline-none pl-4 pr-10 py-2.5 rounded-full transition-colors ${
+                                    isDarkMode ? 'text-white placeholder-gray-500' : 'text-gray-900 placeholder-gray-400'
+                                }`}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onFocus={() => setIsSearchFocused(true)}
+                                onBlur={() => setIsSearchFocused(false)}
+                                onKeyDown={handleSearch}
+                            />
+                            <button
+                                onMouseDown={(e) => {
+                                    e.preventDefault();
+                                    if (searchQuery.trim()) {
+                                        navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
+                                        setIsSearchFocused(false);
+                                    }
+                                }}
+                                className={`absolute right-3 transition-colors ${
+                                    isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-400 hover:text-pink-600'
+                                }`}
+                            >
+                                <Search className="h-4 w-4" />
+                            </button>
+                        </motion.div>
+                    </div>
+
                     {/* Right Actions */}
                     <div className="flex items-center gap-4 md:gap-6 order-2 xl:order-3">
                         {/* Profile */}

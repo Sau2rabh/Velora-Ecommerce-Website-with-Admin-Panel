@@ -66,13 +66,13 @@ const ProductCard = ({ product }) => {
                         e.stopPropagation();
                         toggleWishlist(product);
                     }}
-                    className={`absolute top-4 right-4 w-10 h-10 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 shadow-sm z-20 ${
+                    className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 translate-x-0 lg:translate-x-4 lg:group-hover:translate-x-0 shadow-lg z-20 ${
                         isInWishlist(product._id) 
-                        ? 'bg-pink-50 dark:bg-pink-500 text-pink-600 dark:text-white' 
-                        : 'bg-white/80 dark:bg-black/80 text-gray-900 dark:text-white hover:bg-pink-50 dark:hover:bg-pink-500'
+                        ? 'bg-pink-500 text-white shadow-pink-300/50' 
+                        : 'bg-white text-pink-500 shadow-black/20 hover:bg-pink-500 hover:text-white hover:shadow-pink-300/50'
                     }`}
                 >
-                    <Heart className={`w-5 h-5 ${isInWishlist(product._id) ? 'fill-current' : ''}`} strokeWidth={1.5} />
+                    <Heart className={`w-5 h-5 ${isInWishlist(product._id) ? 'fill-current' : ''}`} strokeWidth={2} />
                 </button>
 
                 {/* Overlay on Hover */}
