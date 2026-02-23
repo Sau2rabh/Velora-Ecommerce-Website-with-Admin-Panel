@@ -12,24 +12,24 @@ const StatCard = ({ title, value, icon: Icon, color, trend }) => (
     <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden group"
+        className="bg-white dark:bg-zinc-800/60 p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-zinc-700/50 relative overflow-hidden group"
     >
         <div className={`absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity ${color.text}`}>
             <Icon className="w-24 h-24 transform translate-x-4 -translate-y-4" />
         </div>
         <div className="relative z-10">
-            <div className={`w-12 h-12 rounded-xl ${color.bg} ${color.text} flex items-center justify-center mb-4`}>
-                <Icon className="w-6 h-6" />
+            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${color.bg} ${color.text} flex items-center justify-center mb-3 sm:mb-4`}>
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <p className="text-gray-500 text-sm font-medium mb-1">{title}</p>
-            <h3 className="text-3xl font-bold font-['Outfit'] text-gray-900">{value}</h3>
+            <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-medium mb-1">{title}</p>
+            <h3 className="text-xl sm:text-3xl font-bold font-['Outfit'] text-gray-900 dark:text-white leading-tight">{value}</h3>
             {trend && (
-                <div className="flex items-center mt-2 text-sm">
+                <div className="flex items-center mt-2 text-xs sm:text-sm">
                     <span className={`flex items-center ${trend >= 0 ? 'text-green-500' : 'text-red-500'} font-bold`}>
                         {trend >= 0 ? <TrendingUp className="w-3 h-3 mr-1" /> : <TrendingDown className="w-3 h-3 mr-1" />}
                         {Math.abs(trend)}%
                     </span>
-                    <span className="text-gray-400 ml-2">vs last month</span>
+                    <span className="text-gray-400 ml-1 hidden sm:inline">vs last month</span>
                 </div>
             )}
         </div>
@@ -47,15 +47,15 @@ const AnalyticsModal = ({ isOpen, onClose, data }) => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
+                className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col border dark:border-zinc-700"
             >
-                <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+                <div className="p-6 border-b border-gray-100 dark:border-zinc-700 flex justify-between items-center">
                     <div>
-                        <h2 className="text-xl font-bold font-['Outfit'] text-gray-900">Detailed Analytics</h2>
-                        <p className="text-sm text-gray-500">Deep dive into your revenue and sales performance</p>
+                        <h2 className="text-xl font-bold font-['Outfit'] text-gray-900 dark:text-white">Detailed Analytics</h2>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Deep dive into your revenue and sales performance</p>
                     </div>
-                    <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                        <X className="w-5 h-5 text-gray-500" />
+                    <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-full transition-colors">
+                        <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                     </button>
                 </div>
 
@@ -63,39 +63,39 @@ const AnalyticsModal = ({ isOpen, onClose, data }) => {
                     <div className="flex gap-4 mb-6">
                         <button 
                             onClick={() => setChartType('line')}
-                            className={`flex items-center px-4 py-2 rounded-xl text-sm font-medium transition-colors ${chartType === 'line' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                            className={`flex items-center px-4 py-2 rounded-xl text-sm font-medium transition-colors ${chartType === 'line' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-zinc-700'}`}
                         >
                             <LineChartIcon className="w-4 h-4 mr-2" /> Line Chart
                         </button>
                         <button 
                             onClick={() => setChartType('pie')}
-                            className={`flex items-center px-4 py-2 rounded-xl text-sm font-medium transition-colors ${chartType === 'pie' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                            className={`flex items-center px-4 py-2 rounded-xl text-sm font-medium transition-colors ${chartType === 'pie' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-zinc-700'}`}
                         >
                             <PieChartIcon className="w-4 h-4 mr-2" /> Pie Chart
                         </button>
                     </div>
 
-                    <div className="h-96 bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center justify-center">
+                    <div className="h-96 bg-gray-50 dark:bg-zinc-800 rounded-2xl p-4 border border-gray-100 dark:border-zinc-700 flex items-center justify-center">
                         <ResponsiveContainer width="100%" height="100%">
                             {chartType === 'line' ? (
                                 <LineChart data={data.monthlyRevenue || []} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                                     <XAxis 
                                         dataKey="_id" 
                                         axisLine={true} 
                                         tickLine={true} 
-                                        tick={{fill: '#4b5563', fontSize: 12}}
+                                        tick={{fill: '#9ca3af', fontSize: 12}}
                                         label={{ value: 'Month', position: 'insideBottom', offset: -10, fill: '#6b7280' }}
                                     />
                                     <YAxis 
                                         axisLine={true} 
                                         tickLine={true} 
-                                        tick={{fill: '#4b5563', fontSize: 12}} 
+                                        tick={{fill: '#9ca3af', fontSize: 12}} 
                                         tickFormatter={(value) => `₹${value}`} 
                                         label={{ value: 'Revenue', angle: -90, position: 'insideLeft', offset: 0, fill: '#6b7280' }}
                                     />
                                     <Tooltip 
-                                        contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                        contentStyle={{ borderRadius: '8px', border: '1px solid #374151', background: '#1f2937', color: '#f9fafb' }}
                                     />
                                     <Legend verticalAlign="top" height={36} />
                                     <Line 
@@ -125,7 +125,7 @@ const AnalyticsModal = ({ isOpen, onClose, data }) => {
                                             <Cell key={`cell-${index}`} fill={['#4F46E5', '#EC4899', '#10B981', '#F59E0B', '#6366F1'][index % 5]} />
                                         ))}
                                     </Pie>
-                                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
+                                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', background: '#1f2937', color: '#f9fafb' }} />
                                     <Legend />
                                 </PieChart>
                             )}
@@ -133,9 +133,9 @@ const AnalyticsModal = ({ isOpen, onClose, data }) => {
                     </div>
 
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="bg-white p-4 rounded-xl border border-gray-100 text-center">
-                            <h4 className="text-gray-500 text-sm font-medium mb-1">Total Revenue</h4>
-                            <p className="text-2xl font-bold font-['Outfit'] text-gray-900">
+                        <div className="bg-white dark:bg-zinc-800 p-4 rounded-xl border border-gray-100 dark:border-zinc-700 text-center">
+                            <h4 className="text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">Total Revenue</h4>
+                            <p className="text-2xl font-bold font-['Outfit'] text-gray-900 dark:text-white">
                                 {new Intl.NumberFormat('en-IN', {
                                     style: 'currency',
                                     currency: 'INR',
@@ -143,9 +143,9 @@ const AnalyticsModal = ({ isOpen, onClose, data }) => {
                                 }).format(data.totalRevenue || 0)}
                             </p>
                         </div>
-                        <div className="bg-white p-4 rounded-xl border border-gray-100 text-center">
-                             <h4 className="text-gray-500 text-sm font-medium mb-1">Total Orders</h4>
-                             <p className="text-2xl font-bold font-['Outfit'] text-gray-900">{data.totalOrders}</p>
+                        <div className="bg-white dark:bg-zinc-800 p-4 rounded-xl border border-gray-100 dark:border-zinc-700 text-center">
+                             <h4 className="text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">Total Orders</h4>
+                             <p className="text-2xl font-bold font-['Outfit'] text-gray-900 dark:text-white">{data.totalOrders}</p>
                         </div>
                     </div>
                 </div>
@@ -202,6 +202,10 @@ const AdminDashboard = () => {
     const handleExport = () => {
         const doc = new jsPDF();
 
+        // PDF-safe currency formatter — jsPDF's default font can't render ₹, so we use Rs.
+        const fmtPDF = (amount) =>
+            'Rs. ' + new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(amount);
+
         // Title
         doc.setFontSize(22);
         doc.setTextColor(79, 70, 229); // Indigo 600
@@ -221,7 +225,7 @@ const AdminDashboard = () => {
             startY: 50,
             head: [['Metric', 'Value']],
             body: [
-                ['Total Revenue', formatCurrency(stats.totalRevenue)],
+                ['Total Revenue', fmtPDF(stats.totalRevenue)],
                 ['Total Orders', stats.totalOrders],
                 ['Total Products', stats.totalProducts],
                 ['Total Users', stats.totalUsers],
@@ -234,7 +238,7 @@ const AdminDashboard = () => {
         // Revenue Breakdown
         doc.text('Monthly Revenue Breakdown', 14, doc.lastAutoTable.finalY + 15);
         
-        const revenueData = stats.monthlyRevenue.map(item => [item._id, formatCurrency(item.total)]);
+        const revenueData = stats.monthlyRevenue.map(item => [item._id, fmtPDF(item.total)]);
         
         autoTable(doc, {
             startY: doc.lastAutoTable.finalY + 20,
@@ -277,9 +281,9 @@ const AdminDashboard = () => {
 
     if (loading) {
         return (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-pulse">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
                 {[...Array(4)].map((_, i) => (
-                    <div key={i} className="h-40 bg-gray-200 rounded-2xl"></div>
+                    <div key={i} className="h-36 bg-gray-200 dark:bg-zinc-800 rounded-2xl"></div>
                 ))}
             </div>
         );
@@ -293,31 +297,32 @@ const AdminDashboard = () => {
                 data={stats} 
             />
 
-            <div className="flex justify-between items-center">
+            {/* Page header */}
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold font-['Outfit'] text-gray-900">Dashboard</h1>
-                    <p className="text-gray-500 mt-1">Welcome back, {user.name} 👋</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold font-['Outfit'] text-gray-900 dark:text-white">Dashboard</h1>
+                    <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm">Welcome back, {user.name} 👋</p>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-2 sm:gap-3">
                     <button 
                         onClick={handleExport}
-                        className="flex items-center px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
+                        className="flex items-center justify-center px-3 sm:px-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-300 rounded-xl text-sm font-medium hover:bg-gray-50 dark:hover:bg-zinc-700 transition-colors"
                     >
-                        <Download className="w-4 h-4 mr-2" />
-                        Export Report
+                        <Download className="w-4 h-4 sm:mr-2 flex-shrink-0" />
+                        <span className="hidden sm:inline">Export Report</span>
                     </button>
                     <button 
                         onClick={() => setShowAnalytics(true)}
-                        className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200"
+                        className="flex items-center justify-center px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200/30"
                     >
-                        <BarChart2 className="w-4 h-4 mr-2" />
-                        View Analytics
+                        <BarChart2 className="w-4 h-4 sm:mr-2 flex-shrink-0" />
+                        <span className="hidden sm:inline">View Analytics</span>
                     </button>
                 </div>
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatCard 
                     title="Total Revenue" 
                     value={formatCurrency(stats.totalRevenue)} 
@@ -351,13 +356,13 @@ const AdminDashboard = () => {
             {/* Charts Section */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Revenue Chart */}
-                <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div className="lg:col-span-2 bg-white dark:bg-zinc-800/60 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-zinc-700/50">
                     <div className="flex justify-between items-center mb-6">
-                        <h3 className="text-lg font-bold font-['Outfit'] text-gray-900">Revenue Overview</h3>
+                        <h3 className="text-lg font-bold font-['Outfit'] text-gray-900 dark:text-white">Revenue Overview</h3>
                         <select 
                             value={timeRange}
                             onChange={(e) => setTimeRange(e.target.value)}
-                            className="bg-gray-50 border-none text-sm text-gray-500 rounded-lg p-2 outline-none cursor-pointer hover:bg-gray-100"
+                            className="bg-gray-50 dark:bg-zinc-700 border-none text-sm text-gray-500 dark:text-gray-300 rounded-lg p-2 outline-none cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-600"
                         >
                             <option value="day">Day</option>
                             <option value="month">Month</option>
@@ -400,9 +405,9 @@ const AdminDashboard = () => {
                     </div>
                 </div>
 
-                {/* Recent Activity / Side Panel */}
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
-                    <h3 className="text-lg font-bold font-['Outfit'] text-gray-900 mb-6">Sales by Category</h3>
+                {/* Sales by Category */}
+                <div className="bg-white dark:bg-zinc-800/60 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-zinc-700/50 flex flex-col">
+                    <h3 className="text-lg font-bold font-['Outfit'] text-gray-900 dark:text-white mb-6">Sales by Category</h3>
                     <div className="flex-1 flex items-center justify-center min-h-[300px]">
                         {stats.salesByCategory && stats.salesByCategory.length > 0 ? (
                             <ResponsiveContainer width="100%" height="100%">

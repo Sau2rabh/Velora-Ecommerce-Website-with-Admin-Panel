@@ -80,7 +80,7 @@ const Layout = ({ children }) => {
     const { isDarkMode } = useTheme();
 
     return (
-        <div className={`flex flex-col min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} font-sans`}>
+        <div className={`flex flex-col min-h-screen overflow-x-hidden transition-colors duration-300 ${isDarkMode ? 'dark bg-black text-white' : 'bg-gray-50 text-gray-900'} font-sans`}>
             {!isAuthPage && <Navbar />}
             <CartDrawer />
             <LiveChatButton />

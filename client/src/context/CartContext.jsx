@@ -18,22 +18,22 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product, qty = 1) => {
-    const existItem = cartItems.find((x) => x._id === product._id);
+  const addToCart = (product, qty = 1, size = '') => {
+    const existItem = cartItems.find((x) => x._id === product._id && x.size === size);
 
     if (existItem) {
       setCartItems(
         cartItems.map((x) =>
-          x._id === existItem._id ? { ...existItem, qty: Number(qty) } : x
+          (x._id === existItem._id && x.size === size) ? { ...existItem, qty: Number(qty) } : x
         )
       );
     } else {
-      setCartItems([...cartItems, { ...product, qty: Number(qty) }]);
+      setCartItems([...cartItems, { ...product, qty: Number(qty), size }]);
     }
   };
 
-  const removeFromCart = (id) => {
-    setCartItems(cartItems.filter((x) => x._id !== id));
+  const removeFromCart = (id, size = '') => {
+    setCartItems(cartItems.filter((x) => !(x._id === id && x.size === size)));
   };
 
   const clearCart = () => {
@@ -44,10 +44,10 @@ export const CartProvider = ({ children }) => {
     return cartItems.reduce((qty, item) => Number(item.qty) + qty, 0);
   };
 
-  const updateQuantity = (productId, qty) => {
-      const item = cartItems.find(x => x._id === productId);
+  const updateQuantity = (productId, qty, size = '') => {
+      const item = cartItems.find(x => x._id === productId && x.size === size);
       if (item) {
-          addToCart(item, qty);
+          addToCart(item, qty, size);
       }
   };
 

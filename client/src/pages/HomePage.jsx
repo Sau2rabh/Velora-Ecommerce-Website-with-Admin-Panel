@@ -8,6 +8,7 @@ import {
   Shield,
   RefreshCw,
   Headphones,
+  Lock,
 } from 'lucide-react';
 import Hero from '../components/Hero';
 import PageTransition from '../components/PageTransition';
@@ -279,7 +280,7 @@ const HomePage = () => {
             Shop by Occasion
           </h3>
 
-          <div className='flex flex-col md:flex-row gap-4 h-[1000px] md:h-[600px]'>
+          <div className='flex flex-col md:flex-row gap-4 h-[750px] md:h-[600px]'>
             {[
               {
                 id: 1,
@@ -321,9 +322,9 @@ const HomePage = () => {
                 />
                 <div className='absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500' />
 
-                <div className='absolute inset-0 p-8 flex flex-col justify-end'>
-                  <div className='bg-white/10 dark:bg-black/40 backdrop-blur-md border border-white/20 dark:border-white/10 p-6 rounded-2xl opacity-90 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0'>
-                    <h4 className="text-2xl font-bold text-white uppercase tracking-wider mb-2 font-['Outfit'] whitespace-nowrap">
+                <div className='absolute inset-0 p-4 md:p-8 flex flex-col justify-end'>
+                  <div className='bg-white/10 dark:bg-black/40 backdrop-blur-md border border-white/20 dark:border-white/10 p-4 md:p-6 rounded-2xl opacity-90 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0 w-fit'>
+                    <h4 className="text-xl md:text-2xl font-bold text-white uppercase tracking-wider mb-2 font-['Outfit'] whitespace-nowrap">
                       {item.title}
                     </h4>
                     <p className='text-gray-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 hidden md:block'>
@@ -338,42 +339,45 @@ const HomePage = () => {
 
         {/* Why Choose Velora - Glassmorphic Features */}
         <div className='container mx-auto px-4 lg:px-12 py-12'>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
+          <div className='flex flex-col items-stretch md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8'>
             {[
               {
-                icon: Truck,
-                title: 'Free Shipping',
-                desc: 'On all orders over $199',
-              },
-              {
                 icon: Shield,
-                title: 'Secure Payment',
-                desc: '100% secure transactions',
+                title: '100% Original',
+                desc: 'Authenticity Guaranteed',
+                color: 'text-pink-500',
+                bg: 'bg-pink-500/10'
               },
               {
                 icon: RefreshCw,
-                title: 'Easy Returns',
-                desc: '30-day money back guarantee',
+                title: '14 Day Returns',
+                desc: 'Free Hassle-free Returns',
+                color: 'text-purple-500',
+                bg: 'bg-purple-500/10'
               },
               {
-                icon: Headphones,
-                title: '24/7 Support',
-                desc: 'Dedicated support team',
+                icon: Lock,
+                title: 'Secure Checkout',
+                desc: 'PCI-DSS Encrypted Payments',
+                color: 'text-blue-500',
+                bg: 'bg-blue-500/10'
               },
             ].map((item, idx) => (
               <div
                 key={idx}
-                className='group p-8 rounded-[2rem] bg-white dark:bg-zinc-900/50 backdrop-blur-sm border border-gray-100 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2'
+                className='w-full group p-5 md:p-8 rounded-[2rem] bg-white dark:bg-zinc-900/50 backdrop-blur-sm border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex items-center gap-4 md:gap-6'
               >
-                <div className='w-14 h-14 bg-pink-50 dark:bg-pink-500/10 rounded-full flex items-center justify-center mb-6 text-pink-500 dark:text-pink-400 group-hover:bg-pink-500 group-hover:text-white transition-colors duration-300'>
-                  <item.icon className='w-6 h-6' />
+                <div className={`w-16 h-16 md:w-16 md:h-16 shrink-0 ${item.bg} rounded-[1.5rem] flex items-center justify-center ${item.color} group-hover:scale-110 transition-transform duration-500`}>
+                  <item.icon className='w-7 h-7' strokeWidth={1.5} />
                 </div>
-                <h4 className='text-xl font-bold text-gray-900 dark:text-white mb-2 font-["Outfit"] uppercase tracking-wider'>
-                  {item.title}
-                </h4>
-                <p className='text-gray-500 dark:text-gray-400 text-sm leading-relaxed'>
-                  {item.desc}
-                </p>
+                <div className="flex flex-col">
+                  <h4 className='text-lg md:text-xl font-bold text-gray-900 dark:text-white font-["Outfit"] uppercase tracking-wide'>
+                    {item.title}
+                  </h4>
+                  <p className='text-gray-400 dark:text-gray-500 text-[10px] font-black uppercase tracking-[0.15em] mt-1'>
+                    {item.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -407,9 +411,9 @@ const HomePage = () => {
                 <input
                   type='email'
                   placeholder='Enter your email address'
-                  className='w-full bg-white/10 backdrop-blur-md border border-white/20 text-white pl-6 pr-36 md:pr-40 py-4 rounded-full focus:outline-none focus:border-pink-500 focus:bg-white/20 transition-all placeholder-gray-400'
+                  className='w-full bg-white/10 backdrop-blur-md border border-white/20 text-white pl-6 pr-[120px] md:pr-40 py-4 rounded-full focus:outline-none focus:border-pink-500 focus:bg-white/20 transition-all placeholder:text-[10px] md:placeholder:text-sm placeholder-gray-400'
                 />
-                <button className='absolute right-2 bg-pink-500 text-white px-6 py-2.5 rounded-full font-bold uppercase tracking-wider hover:bg-pink-400 transition-colors shadow-lg'>
+                <button className='absolute right-2 bg-pink-500 text-white px-5 md:px-8 py-2.5 rounded-full font-bold uppercase text-[10px] md:text-xs tracking-wider hover:bg-pink-400 transition-colors shadow-lg'>
                   Subscribe
                 </button>
               </form>

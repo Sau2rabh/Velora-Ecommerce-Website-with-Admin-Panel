@@ -172,7 +172,10 @@ const OrderDetailsPage = () => {
                         {/* Order Header */}
                         <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-white/5 flex flex-col md:flex-row justify-between items-start gap-4">
                             <div>
-                                <h1 className="text-2xl font-bold font-['Outfit'] mb-1 dark:text-white">Order #{order._id}</h1>
+                                <h1 className="font-bold font-['Outfit'] mb-1 dark:text-white flex flex-col md:flex-row md:items-baseline gap-1 md:gap-2">
+                                    <span className="text-xl md:text-2xl">Order</span>
+                                    <span className="text-sm md:text-2xl text-gray-400 dark:text-gray-500 font-mono tracking-tighter">#{order._id}</span>
+                                </h1>
                                 <p className="text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2">
                                     <Calendar className="w-4 h-4" /> {new Date(order.createdAt).toLocaleString()}
                                 </p>

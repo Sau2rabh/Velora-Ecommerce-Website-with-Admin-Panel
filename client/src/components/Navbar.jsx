@@ -82,10 +82,10 @@ const Navbar = () => {
                     : 'bg-transparent border-b border-transparent'
                 }`}
             >
-                <div className="container mx-auto px-4 lg:px-12 h-24 flex items-center justify-between">
+                <div className="container mx-auto px-4 xl:px-12 min-h-[6rem] py-4 xl:py-0 flex flex-wrap xl:flex-nowrap items-center justify-between gap-y-4">
                     
                     {/* Logo & Categories */}
-                    <div className="flex items-center gap-12">
+                    <div className="flex items-center gap-6 xl:gap-12 flex-shrink-0 order-1">
                         <Link to="/" className="flex items-center shrink-0 group">
                             <motion.span 
                                 whileHover={{ scale: 1.02 }}
@@ -95,7 +95,7 @@ const Navbar = () => {
                             </motion.span>
                         </Link>
                         
-                        <div className="hidden lg:flex items-center gap-10">
+                        <div className="hidden xl:flex items-center gap-10">
                             {navLinks.map((link) => (
                                 <Link 
                                     key={link.name} 
@@ -111,76 +111,10 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    {/* Search Bar */}
-                    <div className="hidden md:block flex-1 max-w-sm mx-12 relative">
-                        <motion.div 
-                            animate={{ 
-                                scale: isSearchFocused ? 1.02 : 1,
-                                borderColor: isSearchFocused ? "rgba(236, 72, 153, 0.4)" : "rgba(0,0,0,0)"
-                            }}
-                            className={`flex items-center transition-all duration-300 rounded-full px-5 py-3 border ${
-                                isSearchFocused 
-                                ? isDarkMode ? 'bg-white/10 border-pink-500/50 shadow-[0_0_20px_rgba(236,72,153,0.2)]' : 'bg-white border-pink-500/20 shadow-lg' 
-                                : isDarkMode ? 'bg-white/5 border-transparent' : 'bg-gray-100/50 border-transparent'
-                            }`}
-                        >
-                            <Search className={`h-4 w-4 mr-3 transition-colors ${isSearchFocused ? 'text-pink-500' : 'text-gray-400'}`} />
-                            <input 
-                                type="text" 
-                                placeholder="Search..." 
-                                className={`w-full bg-transparent border-none outline-none text-xs font-bold tracking-wide placeholder-gray-400 uppercase ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                onKeyDown={handleSearch}
-                                onFocus={() => setIsSearchFocused(true)}
-                                onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
-                            />
-                        </motion.div>
 
-                        {/* Search Suggestions Dropdown */}
-                        <AnimatePresence>
-                            {isSearchFocused && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 10 }}
-                                    className={`absolute top-full left-0 right-0 mt-2 rounded-2xl shadow-2xl border overflow-hidden z-50 p-2 ${isDarkMode ? 'bg-black border-white/10' : 'bg-white border-gray-100'}`}
-                                >
-                                    <div className="p-3">
-                                        <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">
-                                            {searchQuery ? 'Suggestions' : 'Trending Now'}
-                                        </h4>
-                                        <div className="space-y-1">
-                                            {(searchQuery ? [
-                                                `Search for "${searchQuery}"`,
-                                                ...['Electronics', 'Men', 'Women', 'Apple', 'Sony'].filter(s => s.toLowerCase().includes(searchQuery.toLowerCase()))
-                                            ] : [
-                                                'Apple Watch', 'iPhone 13', 'Sony Playstation', 'Canon Camera', 'Logitech Mouse'
-                                            ]).map((item, idx) => (
-                                                <div 
-                                                    key={idx}
-                                                    onClick={() => {
-                                                        setSearchQuery(item.startsWith('Search for') ? searchQuery : item);
-                                                        navigate(`/products?search=${encodeURIComponent(item.startsWith('Search for') ? searchQuery : item)}`);
-                                                        setIsSearchFocused(false);
-                                                    }}
-                                                    className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-colors group ${isDarkMode ? 'hover:bg-white/10' : 'hover:bg-gray-50'}`}
-                                                >
-                                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isDarkMode ? 'bg-white/5 text-gray-500 group-hover:bg-pink-500/20 group-hover:text-pink-400' : 'bg-gray-100 text-gray-400 group-hover:bg-pink-50 group-hover:text-pink-500'}`}>
-                                                        <Search className="w-3 h-3" />
-                                                    </div>
-                                                    <span className={`text-sm font-medium transition-colors ${isDarkMode ? 'text-gray-300 group-hover:text-white' : 'text-gray-700 group-hover:text-black'}`}>{item}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
 
                     {/* Right Actions */}
-                    <div className="flex items-center gap-4 md:gap-8">
+                    <div className="flex items-center gap-4 md:gap-6 order-2 xl:order-3">
                         {/* Profile */}
                         <div className="relative z-[60] profile-dropdown-container">
                             {!user ? (
@@ -304,7 +238,7 @@ const Navbar = () => {
                         </button>
                         
                         {/* Mobile Menu Button */}
-                        <button className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
+                        <button className="xl:hidden" onClick={() => setIsOpen(!isOpen)}>
                             {isOpen ? <X className={`h-6 w-6 transition-colors ${isDarkMode ? 'text-white' : 'text-gray-900'}`} /> : <Menu className={`h-6 w-6 transition-colors ${isDarkMode ? 'text-white' : 'text-gray-900'}`} />}
                         </button>
                     </div>
@@ -317,11 +251,11 @@ const Navbar = () => {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            className={`lg:hidden border-t overflow-hidden transition-colors duration-300 ${isDarkMode ? 'bg-black border-white/10' : 'bg-white border-gray-100'}`}
+                            className={`xl:hidden border-t overflow-hidden transition-colors duration-300 ${isDarkMode ? 'bg-black border-white/10' : 'bg-white border-gray-100'}`}
                         >
-                            <div className="px-6 py-6 space-y-6">
+                            <div className="px-6 py-4 space-y-4">
                                 {/* Mobile Search */}
-                                <div className="relative">
+                                <div className="relative mb-6">
                                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                                     <input 
                                         type="text" 
@@ -344,17 +278,12 @@ const Navbar = () => {
                                     <Link 
                                         key={link.name} 
                                         to={link.path}
-                                        className={`block text-2xl font-black transition-colors tracking-tight font-['Outfit'] ${isDarkMode ? 'text-white hover:text-pink-500' : 'text-gray-900 hover:text-pink-600'}`}
+                                        className={`block text-xl font-bold transition-colors tracking-tight font-['Outfit'] ${isDarkMode ? 'text-white hover:text-pink-500' : 'text-gray-900 hover:text-pink-600'}`}
                                         onClick={() => setIsOpen(false)}
                                     >
                                         {link.name}
                                     </Link>
                                 ))}
-                                <div className={`pt-8 border-t ${isDarkMode ? 'border-white/10' : 'border-gray-100'}`}>
-                                    <Link to="/login" className={`block w-full py-4 text-center font-bold uppercase tracking-widest rounded-xl transition-all ${isDarkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'}`}>
-                                        Login / Register
-                                    </Link>
-                                </div>
                             </div>
                         </motion.div>
                     )}

@@ -5,9 +5,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
 
 const ProfilePage = () => {
-    const { user } = useAuth();
+    const { user, updateProfile } = useAuth();
     const navigate = useNavigate();
-    const { showInfo } = useToast();
+    const { showSuccess, showError } = useToast();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -15,6 +15,7 @@ const ProfilePage = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState(null);
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!user) {
@@ -43,11 +44,24 @@ const ProfilePage = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
+        setMessage(null);
+        
         if (password !== confirmPassword) {
             setMessage('Passwords do not match');
-        } else {
-            // Update profile logic here
-            showInfo("Profile update feature to be implemented fully.");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            await updateProfile({ name, email, password });
+            showSuccess("Profile updated successfully!");
+            setPassword('');
+            setConfirmPassword('');
+        } catch (error) {
+            showError(error);
+            setMessage(error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -64,6 +78,7 @@ const ProfilePage = () => {
                                 <div>
                                     <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Name</label>
                                     <input 
+                                        required
                                         type="text" 
                                         value={name} 
                                         onChange={(e) => setName(e.target.value)}
@@ -73,6 +88,7 @@ const ProfilePage = () => {
                                 <div>
                                     <label className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Email</label>
                                     <input 
+                                        required
                                         type="email" 
                                         value={email} 
                                         onChange={(e) => setEmail(e.target.value)}
@@ -98,7 +114,18 @@ const ProfilePage = () => {
                                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white dark:bg-black text-gray-900 dark:text-white"
                                     />
                                 </div>
-                                <button type="submit" className="w-full bg-black dark:bg-white text-white dark:text-black py-2 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">Update</button>
+                                <button 
+                                    type="submit" 
+                                    disabled={loading}
+                                    className="w-full bg-black dark:bg-white text-white dark:text-black py-2 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                >
+                                    {loading ? (
+                                        <>
+                                            <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+                                            Updating...
+                                        </>
+                                    ) : 'Update'}
+                                </button>
                             </form>
                         </div>
                     </div>

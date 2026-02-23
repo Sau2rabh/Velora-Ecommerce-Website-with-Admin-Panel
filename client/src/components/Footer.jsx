@@ -27,7 +27,7 @@ const Footer = () => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-black to-black opacity-90" />
             
             <div className="container mx-auto px-4 lg:px-12 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-12">
                     
                     {/* Brand Section */}
                     <div className="lg:col-span-4 space-y-6">
@@ -75,7 +75,7 @@ const Footer = () => {
                         
                         {/* Collections */}
                         <div>
-                            <h4 className="font-bold text-xs uppercase tracking-[0.3em] mb-6 text-white relative flex items-center gap-3">
+                            <h4 className="font-bold text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 text-white relative flex items-center gap-3 whitespace-nowrap">
                                 <span className="w-4 h-0.5 bg-pink-500 rounded-full" />
                                 Collections
                             </h4>
@@ -102,7 +102,7 @@ const Footer = () => {
 
                         {/* Customer Care */}
                         <div>
-                            <h4 className="font-bold text-xs uppercase tracking-[0.3em] mb-6 text-white relative flex items-center gap-3">
+                            <h4 className="font-bold text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 text-white relative flex items-center gap-3 whitespace-nowrap">
                                 <span className="w-4 h-0.5 bg-purple-600 rounded-full" />
                                 Customer Care
                             </h4>
@@ -130,7 +130,7 @@ const Footer = () => {
 
                         {/* Company & Legal */}
                         <div className="col-span-1 md:col-span-1">
-                            <h4 className="font-bold text-xs uppercase tracking-[0.3em] mb-6 text-white relative flex items-center gap-3">
+                            <h4 className="font-bold text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 text-white relative flex items-center gap-3 whitespace-nowrap">
                                 <span className="w-4 h-0.5 bg-blue-500 rounded-full" />
                                 Legal hub
                             </h4>
@@ -167,7 +167,7 @@ const Footer = () => {
                             <div className="text-gray-600 text-[10px] mt-1 uppercase tracking-widest font-black">Authenticity Guaranteed</div>
                         </div>
                     </div>
-                     <div className="flex items-center gap-6 border-l border-r border-white/5 px-10">
+                     <div className="flex items-center gap-6 md:border-l md:border-r border-white/5 px-4 md:px-10">
                         <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-purple-500 shadow-xl">
                              <RefreshCw className="w-7 h-7" />
                         </div>

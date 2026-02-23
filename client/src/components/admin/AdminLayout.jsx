@@ -19,10 +19,10 @@ const AdminLayout = () => {
     }
 
     return (
-        <div className="flex bg-gray-50 min-h-screen font-['Inter']">
+        <div className="flex bg-gray-50 dark:bg-zinc-900 min-h-screen font-['Inter'] transition-colors duration-300">
             <AdminSidebar />
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6 lg:p-10">
+                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 dark:bg-zinc-900 p-6 lg:p-10 pt-20 lg:pt-10 transition-colors duration-300">
                     <Outlet />
                 </main>
             </div>

@@ -74,11 +74,11 @@
 
 @layer base {
   html {
-    @apply antialiased scroll-smooth;
+    @apply antialiased scroll-smooth overflow-x-hidden;
   }
   
   body {
-    @apply transition-colors duration-300;
+    @apply transition-colors duration-300 overflow-x-hidden w-full;
   }
 
   /* Dark mode scrollbar for Chrome/Safari */

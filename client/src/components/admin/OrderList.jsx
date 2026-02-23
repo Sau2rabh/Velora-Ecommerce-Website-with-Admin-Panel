@@ -72,17 +72,17 @@ const OrderList = () => {
 
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                 <div>
-                    <h1 className="text-2xl font-bold font-['Outfit'] text-gray-900">Orders</h1>
-                    <p className="text-gray-500 text-sm mt-1">Manage customer orders and shipments</p>
+                    <h1 className="text-2xl font-bold font-['Outfit'] text-gray-900 dark:text-white">Orders</h1>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Manage customer orders and shipments</p>
                 </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="bg-white dark:bg-zinc-800/60 rounded-2xl shadow-sm border border-gray-100 dark:border-zinc-700/50 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
-                        <thead className="bg-gray-50 text-gray-500 text-xs uppercase font-semibold">
+                        <thead className="bg-gray-50 dark:bg-zinc-900 text-gray-500 dark:text-gray-400 text-xs uppercase font-semibold">
                             <tr>
                                 <th className="px-6 py-4">Order ID</th>
                                 <th className="px-6 py-4">Customer</th>
@@ -93,25 +93,25 @@ const OrderList = () => {
                                 <th className="px-6 py-4 text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100">
+                        <tbody className="divide-y divide-gray-100 dark:divide-zinc-700/50">
                             {loading ? (
-                                <tr><td colSpan="7" className="px-6 py-8 text-center text-gray-500">Loading orders...</td></tr>
+                                <tr><td colSpan="7" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">Loading orders...</td></tr>
                             ) : orders.length === 0 ? (
-                                <tr><td colSpan="7" className="px-6 py-8 text-center text-gray-500">No orders found.</td></tr>
+                                <tr><td colSpan="7" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">No orders found.</td></tr>
                             ) : (
                                 orders.map((order) => (
-                                    <tr key={order._id} className="hover:bg-gray-50 transition-colors">
-                                        <td className="px-6 py-4 text-sm font-medium text-gray-900">#{order._id.substring(0, 8)}...</td>
-                                        <td className="px-6 py-4 text-sm text-gray-600">{order.user && order.user.name}</td>
-                                        <td className="px-6 py-4 text-sm text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</td>
-                                        <td className="px-6 py-4 text-sm font-medium text-gray-900">₹{order.totalPrice?.toLocaleString('en-IN')}</td>
+                                    <tr key={order._id} className="hover:bg-gray-50 dark:hover:bg-zinc-700/30 transition-colors">
+                                        <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">#{order._id.substring(0, 8)}...</td>
+                                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">{order.user && order.user.name}</td>
+                                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">{new Date(order.createdAt).toLocaleDateString()}</td>
+                                        <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">₹{order.totalPrice?.toLocaleString('en-IN')}</td>
                                         <td className="px-6 py-4">
-                                            <span className={`px-2 py-1 rounded-lg text-xs font-medium ${order.isPaid ? 'bg-green-50 text-green-600' : 'bg-yellow-50 text-yellow-600'}`}>
+                                            <span className={`px-2 py-1 rounded-lg text-xs font-medium ${order.isPaid ? 'bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400' : 'bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400'}`}>
                                                 {order.isPaid ? 'Paid' : 'Pending'}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className={`px-2 py-1 rounded-lg text-xs font-medium flex items-center gap-1 w-fit ${order.isDelivered ? 'bg-green-50 text-green-600' : 'bg-blue-50 text-blue-600'}`}>
+                                            <span className={`px-2 py-1 rounded-lg text-xs font-medium flex items-center gap-1 w-fit ${order.isDelivered ? 'bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400' : 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'}`}>
                                                 {order.isDelivered ? <CheckCircle className="w-3 h-3" /> : <Truck className="w-3 h-3" />}
                                                 {order.isDelivered ? 'Delivered' : 'Processing'}
                                             </span>
@@ -121,7 +121,7 @@ const OrderList = () => {
                                                 {!order.isDelivered && (
                                                     <button 
                                                         onClick={() => markAsDelivered(order._id)}
-                                                        className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition-all" 
+                                                        className="p-2 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all" 
                                                         title="Mark as Delivered"
                                                     >
                                                         <Truck className="w-4 h-4" />
@@ -129,7 +129,7 @@ const OrderList = () => {
                                                 )}
                                                 <button 
                                                     onClick={() => handleViewOrder(order)}
-                                                    className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                                                    className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-all"
                                                 >
                                                     <Eye className="w-4 h-4" />
                                                 </button>

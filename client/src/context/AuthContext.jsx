@@ -67,6 +67,39 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateProfile = async (userData) => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      // Ensure API URL doesn't have trailing slash before joining
+      const baseUrl = import.meta.env.VITE_API_URL.endsWith('/') 
+        ? import.meta.env.VITE_API_URL.slice(0, -1) 
+        : import.meta.env.VITE_API_URL;
+
+      console.log('Updating profile at:', `${baseUrl}/api/auth/profile`);
+      
+      const { data } = await axios.put(
+        `${baseUrl}/api/auth/profile`,
+        userData,
+        config
+      );
+
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      setUser(data);
+      return data;
+    } catch (error) {
+      console.error('Profile update error:', error.response || error);
+      throw error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('userInfo');
     setUser(null);
@@ -77,6 +110,7 @@ export const AuthProvider = ({ children }) => {
     loading,
     login,
     register,
+    updateProfile,
     logout,
   };
 

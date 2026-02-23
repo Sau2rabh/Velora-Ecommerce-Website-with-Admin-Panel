@@ -98,22 +98,22 @@ const ProductList = () => {
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold font-['Outfit'] text-gray-900">Products</h1>
-                    <p className="text-gray-500 text-sm mt-1">Manage your product inventory</p>
+                    <h1 className="text-2xl font-bold font-['Outfit'] text-gray-900 dark:text-white">Products</h1>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Manage your product inventory</p>
                 </div>
-                <button onClick={createProductHandler} className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200">
+                <button onClick={createProductHandler} className="flex items-center self-start sm:self-auto px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200/30">
                     <Plus className="h-4 w-4 mr-2" /> Add New Product
                 </button>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
-                <div className="p-4 border-b border-gray-100 flex flex-col sm:flex-row gap-4 rounded-t-2xl">
+            <div className="bg-white dark:bg-zinc-800/60 rounded-2xl shadow-sm border border-gray-100 dark:border-zinc-700/50">
+                <div className="p-4 border-b border-gray-100 dark:border-zinc-700/50 flex flex-col sm:flex-row gap-4 rounded-t-2xl">
                     <div className="relative flex-1">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                         <input 
                             type="text" 
                             placeholder="Search products..." 
-                            className="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-indigo-100 outline-none"
+                            className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-zinc-700 border-none rounded-xl text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 outline-none"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -121,7 +121,7 @@ const ProductList = () => {
                     <div className="relative">
                         <button 
                             onClick={() => setShowFilterMenu(!showFilterMenu)}
-                            className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium transition-colors border ${selectedCategory !== 'All' ? 'bg-indigo-50 text-indigo-600 border-indigo-100' : 'bg-gray-50 text-gray-600 border-transparent hover:bg-gray-100'}`}
+                            className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium transition-colors border ${selectedCategory !== 'All' ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border-indigo-100 dark:border-indigo-800' : 'bg-gray-50 dark:bg-zinc-700 text-gray-600 dark:text-gray-300 border-transparent hover:bg-gray-100 dark:hover:bg-zinc-600'}`}
                         >
                             <Filter className="h-4 w-4 mr-2" /> 
                             {selectedCategory === 'All' ? 'Filter' : selectedCategory}
@@ -130,9 +130,9 @@ const ProductList = () => {
                         {showFilterMenu && (
                             <>
                                 <div className="fixed inset-0 z-10" onClick={() => setShowFilterMenu(false)}></div>
-                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-1 z-20 animate-in fade-in zoom-in-95 duration-200">
-                                    <div className="px-4 py-2 border-b border-gray-50">
-                                        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Filter by Category</span>
+                                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-800 rounded-xl shadow-xl border border-gray-100 dark:border-zinc-700 py-1 z-20 animate-in fade-in zoom-in-95 duration-200">
+                                    <div className="px-4 py-2 border-b border-gray-50 dark:border-zinc-700">
+                                        <span className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Filter by Category</span>
                                     </div>
                                     <div className="max-h-60 overflow-y-auto custom-scrollbar">
                                         {categories.map(category => (
@@ -142,7 +142,7 @@ const ProductList = () => {
                                                     setSelectedCategory(category);
                                                     setShowFilterMenu(false);
                                                 }}
-                                                className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${selectedCategory === category ? 'text-indigo-600 font-medium bg-indigo-50' : 'text-gray-700'}`}
+                                                className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-zinc-700 transition-colors ${selectedCategory === category ? 'text-indigo-600 dark:text-indigo-400 font-medium bg-indigo-50 dark:bg-indigo-900/20' : 'text-gray-700 dark:text-gray-300'}`}
                                             >
                                                 {category}
                                             </button>
@@ -156,7 +156,7 @@ const ProductList = () => {
 
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
-                        <thead className="bg-gray-50 text-gray-500 text-xs uppercase font-semibold">
+                        <thead className="bg-gray-50 dark:bg-zinc-900 text-gray-500 dark:text-gray-400 text-xs uppercase font-semibold">
                             <tr>
                                 <th className="px-6 py-4">Product</th>
                                 <th className="px-6 py-4">Category</th>
@@ -165,40 +165,40 @@ const ProductList = () => {
                                 <th className="px-6 py-4 text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100">
+                        <tbody className="divide-y divide-gray-100 dark:divide-zinc-700/50">
                             {loading ? (
-                                <tr><td colSpan="5" className="px-6 py-8 text-center text-gray-500">Loading products...</td></tr>
+                                <tr><td colSpan="5" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">Loading products...</td></tr>
                             ) : filteredProducts.length === 0 ? (
-                                <tr><td colSpan="5" className="px-6 py-8 text-center text-gray-500">No products found.</td></tr>
+                                <tr><td colSpan="5" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">No products found.</td></tr>
                             ) : (
                                 filteredProducts.map((product) => (
-                                    <tr key={product._id} className="hover:bg-gray-50 transition-colors group">
+                                    <tr key={product._id} className="hover:bg-gray-50 dark:hover:bg-zinc-700/30 transition-colors group">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden">
+                                                <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-zinc-700 overflow-hidden">
                                                     <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
                                                 </div>
                                                 <div>
-                                                    <p className="text-sm font-medium text-gray-900 group-hover:text-indigo-600 transition-colors">{product.name}</p>
-                                                    <p className="text-xs text-gray-400">{product.brand}</p>
+                                                    <p className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{product.name}</p>
+                                                    <p className="text-xs text-gray-400 dark:text-gray-500">{product.brand}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-600">
-                                            <span className="px-2 py-1 bg-gray-100 rounded-lg text-xs font-medium text-gray-600">{product.category}</span>
+                                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                            <span className="px-2 py-1 bg-gray-100 dark:bg-zinc-700 rounded-lg text-xs font-medium text-gray-600 dark:text-gray-300">{product.category}</span>
                                         </td>
-                                        <td className="px-6 py-4 text-sm font-medium text-gray-900">₹{product.price?.toLocaleString('en-IN')}</td>
+                                        <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">₹{product.price?.toLocaleString('en-IN')}</td>
                                         <td className="px-6 py-4">
-                                            <span className={`px-2 py-1 rounded-lg text-xs font-medium ${product.countInStock > 0 ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>
+                                            <span className={`px-2 py-1 rounded-lg text-xs font-medium ${product.countInStock > 0 ? 'bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400' : 'bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400'}`}>
                                                 {product.countInStock > 0 ? `${product.countInStock} in stock` : 'Out of stock'}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex items-center justify-end gap-2">
-                                                <button onClick={() => navigate(`/admin/product/${product._id}/edit`)} className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all">
+                                                <button onClick={() => navigate(`/admin/product/${product._id}/edit`)} className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-all">
                                                     <Edit className="w-4 h-4" />
                                                 </button>
-                                                <button onClick={() => deleteHandler(product._id)} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
+                                                <button onClick={() => deleteHandler(product._id)} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all">
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>
                                             </div>

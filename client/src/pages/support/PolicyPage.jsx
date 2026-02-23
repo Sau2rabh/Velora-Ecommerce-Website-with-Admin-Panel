@@ -20,8 +20,8 @@ const PolicyPage = ({ title, subtitle, lastUpdated, content }) => {
                         >
                             Legal & Policies
                         </motion.div>
-                        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 font-['Outfit'] tracking-tighter leading-[1.1]">
-                            {title}
+                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 font-['Outfit'] tracking-tighter leading-[1.1]">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500">{title}</span>
                         </h1>
                         <p className="text-gray-500 dark:text-gray-400 text-lg md:text-xl font-light mb-6 max-w-2xl mx-auto">{subtitle}</p>
                         <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Last Updated: {lastUpdated}</p>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageCircle, Clock, CheckCircle2 } from 'lucide-react';
-import axios from 'axios';
+import emailjs from '@emailjs/browser';
 import PageTransition from '../../components/PageTransition';
 
 const ContactPage = () => {
@@ -20,11 +20,33 @@ const ContactPage = () => {
         setLoading(true);
         setError('');
 
+        const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+        const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+        if (serviceId === 'your_service_id' || !serviceId) {
+            setError('EmailJS is not configured. Please add your keys to the .env file.');
+            setLoading(false);
+            return;
+        }
+
         try {
-            await axios.post(import.meta.env.VITE_API_URL + '/api/support/contact', formData);
+            await emailjs.send(
+                serviceId,
+                templateId,
+                {
+                    from_name: formData.name,
+                    from_email: formData.email,
+                    subject: formData.subject,
+                    message: formData.message,
+                    reply_to: formData.email,
+                },
+                publicKey
+            );
             setSubmitted(true);
             setFormData({ name: '', email: '', subject: 'Support Request', message: '' });
         } catch (err) {
+            console.error('EmailJS Error:', err);
             setError('Something went wrong. Please try again later.');
         } finally {
             setLoading(false);
@@ -51,10 +73,9 @@ const ContactPage = () => {
                         <motion.h1 
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-8 font-['Outfit'] tracking-tighter leading-[1.1]"
+                            className="text-4xl md:text-5xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-8 font-['Outfit'] tracking-tighter leading-[1.1]"
                         >
-                            Get in <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500">Touch.</span>
+                            Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500">Touch.</span>
                         </motion.h1>
                         <p className="text-gray-500 dark:text-gray-400 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
                             Experience personalized support. Our team is here to assist you with everything from styling advice to order inquiries.

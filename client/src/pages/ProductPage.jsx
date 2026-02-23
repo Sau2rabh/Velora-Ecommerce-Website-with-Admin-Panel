@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 import { useToast } from '../context/ToastContext';
 import { Star, ShoppingBag, Heart, Truck, Tag } from 'lucide-react';
 
 const ProductPage = () => {
     const { id } = useParams();
     const { addToCart } = useCart();
+    const { toggleWishlist, isInWishlist } = useWishlist();
     const { showError, showSuccess } = useToast();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -30,11 +32,12 @@ const ProductPage = () => {
     }, [id]);
 
     const addToCartHandler = () => {
-        if (!selectedSize) {
+        const needsSize = ['men', 'women', 'kids'].includes(product.category?.toLowerCase());
+        if (needsSize && !selectedSize) {
             showError('Please select a size');
             return;
         }
-        addToCart(product, 1); // Default quantity 1
+        addToCart(product, 1, selectedSize); // Default quantity 1 with selected size
         showSuccess('Added to cart');
     };
 
@@ -150,8 +153,16 @@ const ProductPage = () => {
                                 >
                                     <ShoppingBag className="h-5 w-5 mr-2" /> Add to Bag
                                 </button>
-                                <button className="flex-1 bg-white dark:bg-transparent border border-gray-300 dark:border-white/10 text-gray-700 dark:text-white font-bold py-4 rounded uppercase tracking-wider hover:border-gray-900 dark:hover:border-white flex items-center justify-center transition-all">
-                                    <Heart className="h-5 w-5 mr-2" /> Wishlist
+                                <button 
+                                    onClick={() => toggleWishlist(product)}
+                                    className={`flex-1 font-bold py-4 rounded uppercase tracking-wider flex items-center justify-center transition-all border ${
+                                        isInWishlist(product._id)
+                                            ? 'bg-pink-50 border-pink-200 text-pink-600 dark:bg-pink-500/10 dark:border-pink-500/20 dark:text-pink-400'
+                                            : 'bg-white dark:bg-transparent border-gray-300 dark:border-white/10 text-gray-700 dark:text-white hover:border-gray-900 dark:hover:border-white'
+                                    }`}
+                                >
+                                    <Heart className={`h-5 w-5 mr-2 ${isInWishlist(product._id) ? 'fill-current' : ''}`} />
+                                    {isInWishlist(product._id) ? 'Wishlisted' : 'Wishlist'}
                                 </button>
                             </div>
 
